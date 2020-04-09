@@ -13,6 +13,9 @@ Search query used was
 
 Results were limited to Scholarly (Peer Reviewed) Journals with publishing dates on or after November 2019. Databases queried include Academic Search Complete,  Academic Search Ultimate, CINAHL, eBook Clinical Collection (EBSCOhost), Health and Psychosocial Instruments, International Pharmaceutical Abstracts, and MEDLINE.
 
-Duplicate DOIs (will be) removed
+Duplicate DOIs should be automatically removed by EBSCO
 
-For convenience, the raw XML data is scraped using scrapeRawData.ipynb
+Raw XML data is scraped using scrapeRawData.ipynb, and simple results are plotted:
+
+![alt text](https://raw.githubusercontent.com/jakesmells/COVID19AcademiaDataset/master/Images/COVID-19_Publications_per_Day.png)
+![alt text](https://raw.githubusercontent.com/jakesmells/COVID19AcademiaDataset/master/Images/COVID-19_Total_Publications.png)
