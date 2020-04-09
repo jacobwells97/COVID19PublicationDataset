@@ -11,7 +11,7 @@ Search query used was
 "coronavirus disease 2019" OR 
 "Wuhan coronavirus"
 
-Results were limited to Scholarly (Peer Reviewed) Journals with publishing dates on or after November 2019. Databases queried include Academic Search Complete,  Academic Search Ultimate, CINAHL, eBook Academic Collection, eBook Clinical Collection (EBSCOhost), Health and Psychosocial Instruments, International Pharmaceutical Abstracts, and MEDLINE.
+Results were limited to Scholarly (Peer Reviewed) Journals with publishing dates on or after November 2019. Databases queried include Academic Search Complete, CINAHL, eBook Academic Collection (EBSCOhost), eBook Clinical Collection (EBSCOhost), Health and Psychosocial Instruments, International Pharmaceutical Abstracts, MEDLINE, and Academic Search Ultimate.
 
 Duplicate DOIs should be automatically removed by EBSCO
 
