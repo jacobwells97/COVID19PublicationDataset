@@ -3,7 +3,7 @@ Database of metadata for scholarly articles related to the Coronavirus Disease 2
 
 Data is scraped through exported searches of the EBSCOhost search tool, utilizing all of their databases.
 
-A persistent link to the search can be found [here](http://libproxy.temple.edu/login?url=http://search.ebscohost.com/login.aspx?direct=true&db=e000xna&db=e600xww&db=a9h&db=cin20&db=hpi&db=ipa&db=cmedm&db=asn&bquery=(+%26quot%3bcovid-19%26quot%3b+OR+%26quot%3bCOVID-19%26quot%3b+)+OR+%26quot%3b2019-nCoV%26quot%3b+OR+%26quot%3bSevere+acute+respiratory+syndrome+coronavirus+2%26quot%3b+OR+%26quot%3bSARS-CoV-2%26quot%3b+OR+%26quot%3bcoronavirus+disease+2019%26quot%3b+OR+%26quot%3bWuhan+coronavirus%26quot%3b&cli0=RV&clv0=Y&cli1=DT1&clv1=201911-000001&type=1&searchMode=Standard&site=ehost-live&scope=site).
+A persistent link to the search can be found [here](http://libproxy.temple.edu/login?url=http://search.ebscohost.com/login.aspx?direct=true&db=e000xna&db=e600xww&db=a9h&db=cin20&db=hpi&db=ipa&db=cmedm&db=asn&bquery=(+%26quot%3bcovid-19%26quot%3b+OR+%26quot%3bCOVID-19%26quot%3b+)+OR+%26quot%3b2019-nCoV%26quot%3b+OR+%26quot%3bSevere+acute+respiratory+syndrome+coronavirus+2%26quot%3b+OR+%26quot%3bSARS-CoV-2%26quot%3b+OR+%26quot%3bcoronavirus+disease+2019%26quot%3b+OR+%26quot%3bWuhan+coronavirus%26quot%3b&cli0=RV&clv0=Y&cli1=DT1&clv1=201911-000001&type=1&searchMode=Standard&site=ehost-live&scope=site). This linked worked on a separate browser on 4/9/2020
 
 Search query used was 
 ( "covid-19" OR "COVID-19" ) OR 
