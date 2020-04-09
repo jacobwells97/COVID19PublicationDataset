@@ -20,7 +20,7 @@ Duplicate DOIs should be automatically removed by EBSCO
 Raw XML data is scraped and simple results are plotted:
 
 ![COVID-19_Publications_per_Day.png](https://github.com/jakesmells/COVID19AcademiaDataset/blob/master/media/COVID-19_Publications_per_Day.png)
-![COVID-19_Total_Publications.png](https://raw.githubusercontent.com/jakesmells/COVID19AcademiaDataset/master/Images/COVID-19_Total_Publications.png)
+![COVID-19_Total_Publications.png](https://raw.githubusercontent.com/jakesmells/COVID19AcademiaDataset/master/media/COVID-19_Total_Publications.png)
 
 COVID-19 case data is retrieved from [JHU's COVID-19 database]
 (https://github.com/CSSEGISandData/COVID-19):
