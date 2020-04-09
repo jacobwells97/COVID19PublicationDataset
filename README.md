@@ -22,7 +22,8 @@ Raw XML data is scraped and simple results are plotted:
 ![COVID-19_Publications_per_Day.png](https://github.com/jakesmells/COVID19AcademiaDataset/blob/master/media/COVID-19_Publications_per_Day.png)
 ![COVID-19_Total_Publications.png](https://raw.githubusercontent.com/jakesmells/COVID19AcademiaDataset/master/Images/COVID-19_Total_Publications.png)
 
-COVID-19 case data is retrieved from [JHU's COVID-19 database](https://github.com/CSSEGISandData/COVID-19).
+COVID-19 case data is retrieved from [JHU's COVID-19 database]:
+(https://github.com/CSSEGISandData/COVID-19).
 ![Total_Global_Confirmed_COVID-19_Cases.png](https://github.com/jakesmells/COVID19AcademiaDataset/blob/master/media/Total_Global_Confirmed_COVID-19_Cases.png)
 ![Total_COVID-19_Deaths.png](https://github.com/jakesmells/COVID19AcademiaDataset/blob/master/media/Total_COVID-19_Deaths.png)
 ![Total_COVID-19_Recovered.png](https://github.com/jakesmells/COVID19AcademiaDataset/blob/master/media/Total_COVID-19_Recovered.png)
