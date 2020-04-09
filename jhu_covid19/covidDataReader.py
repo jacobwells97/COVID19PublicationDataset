@@ -26,8 +26,9 @@ def buildDataset(path):
     dDf = pd.read_csv(dPath)
     rDf = pd.read_csv(rPath)
     
-    today = datetime.now().date()
-    dailySum = {}
+    cDaily = {}
+    dDaily = {}
+    rDaily = {}
 
     for date in cDf:     
         if not (date == 'Province/State' or date == 'Country/Region' or date == 'Lat' or date == 'Long'):
@@ -36,7 +37,6 @@ def buildDataset(path):
             month = dateSplit[0]
             day = dateSplit[1]
             year = dateSplit[2]
-            dt = datetime(int(year), int(month), int(day)).date()
             
             # Sum counts across all regions to get global count
             cSumGlob = sum(cDf[date])
@@ -44,7 +44,10 @@ def buildDataset(path):
             rSumGlob = sum(rDf[date])
             
             # Log 1st row = global cases, 2nd row = global deaths, 3rd row = global recovered under current date
-            dailySum[date] = [cSumGlob, dSumGlob, rSumGlob]
-    df = pd.DataFrame(data = dailySum)
-    return df
+            dt = datetime(2000+int(year), int(month), int(day)).date()
+            cDaily[dt] = cSumGlob
+            dDaily[dt] = dSumGlob
+            rDaily[dt] = rSumGlob
+
+    return cDaily, dDaily, rDaily
 
