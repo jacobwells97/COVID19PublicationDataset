@@ -8,6 +8,7 @@ import pandas as pd
 import os
 import io
 from datetime import datetime
+from utils import dictToDf
 
 def buildDataset(path):
     '''
@@ -15,39 +16,32 @@ def buildDataset(path):
     Stores in a pandas df with format:
     {datetime.date: [confirmed, deaths, recovered]}
     '''
-    # Build paths to Johns Hopkins data
-    slash = os.path.sep
-    cPath = path + "time_series_covid19_confirmed_global.csv"
-    dPath = path + "time_series_covid19_deaths_global.csv"
-    rPath = path + "time_series_covid19_recovered_global.csv"
+    print("Building COVID-19 dataset...")
+    print("\tReading JHU csv files into pandas.DataFrame...")
+    cDf = pd.read_csv(path + "time_series_covid19_confirmed_global.csv")
+    dDf = pd.read_csv(path + "time_series_covid19_deaths_global.csv")
+    rDf = pd.read_csv(path + "time_series_covid19_recovered_global.csv")
     
-    # Read JHU csv's into pandas dataframes
-    cDf = pd.read_csv(cPath)
-    dDf = pd.read_csv(dPath)
-    rDf = pd.read_csv(rPath)
+    print("\tBuilding sums across regions...")
+    cDf = cDf.sum(axis = 0)
+    dDf = dDf.sum(axis = 0)
+    rDf = rDf.sum(axis = 0)
+
+    print("\tMerging, cleaning, and renaming sums...")
+    frames = [cDf, dDf, rDf]
+    result = pd.concat(frames, axis = 1)
+    result = result.rename(columns={0:'confirmed', 1:'dead', 2:'recovered'})
+    result = result.drop(['Lat', 'Long'], axis = 0)
+    # Convert string dates to datetime objects
+    for i in result.index:
+        result = result.rename(index={i:strToDatetime(i)})
+
+    print("Done.")
+    # Return concatenated data
+    return result
+
+def strToDatetime(str):
+    dateStr = str.split("/")
     
-    cDaily = {}
-    dDaily = {}
-    rDaily = {}
-
-    for date in cDf:     
-        if not (date == 'Province/State' or date == 'Country/Region' or date == 'Lat' or date == 'Long'):
-            # Convert date string to datetime object
-            dateSplit = date.split('/')
-            month = dateSplit[0]
-            day = dateSplit[1]
-            year = dateSplit[2]
-            
-            # Sum counts across all regions to get global count
-            cSumGlob = sum(cDf[date])
-            dSumGlob = sum(dDf[date])
-            rSumGlob = sum(rDf[date])
-            
-            # Log 1st row = global cases, 2nd row = global deaths, 3rd row = global recovered under current date
-            dt = datetime(2000+int(year), int(month), int(day)).date()
-            cDaily[dt] = cSumGlob
-            dDaily[dt] = dSumGlob
-            rDaily[dt] = rSumGlob
-
-    return cDaily, dDaily, rDaily
-
+    # Convert the date string tokens to int, return datetime object
+    return datetime(2000+int(dateStr[2]), int(dateStr[0]), int(dateStr[1])).date()

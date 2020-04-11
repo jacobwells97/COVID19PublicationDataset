@@ -5,10 +5,56 @@
 
 
 import csv
-import xml.etree.ElementTree as ET
 from datetime import datetime, timezone, timedelta
+import io
+import pandas as pd
+import xml.etree.ElementTree as ET
+from utils import dictToDf
 
 def buildDataset(fileName, setTag = ""):
+    '''
+    Parse and process EBSCO XML search results file.
+
+    Parameters
+    ----------
+    fileName : str
+        Absolute path to the xml file
+    setTag : str
+        Optional tag for this search, i.e. 'COVID-19' or 'Ebola'
+
+    Returns
+    -------
+    DataFrame
+        Column headers are datetime.date objects, 
+        row 0 is new publications on that date, 
+        row 1 is total publications up to that date
+    '''
+    print("Reading EBSCO search data...")
+
+    print("\tReading entries from XML file...")
+    entries = parseEbscoXml(fileName, setTag)
+
+    print("\tWriting entries to CSV...")
+    writeCSV('csvData.csv', entries)
+
+    print("\tBuilding daily publication counts...")
+    dailyCount = buildDailyPublishCount(entries)
+    
+    print("\tBuilding daily publication sums...")
+    dailySum = buildDailyPublishSum(dailyCount)
+
+    print("\tConverting to Pandas DataFrames....")
+    countDf = dictToDf.convert(dailyCount)
+    sumDf = dictToDf.convert(dailySum)
+
+    print("\tCombining DataFrames...")
+    countDf.loc[1] = sumDf.loc[0]
+
+    print("Done.")
+    # Return combined DataFrame
+    return countDf
+
+def parseEbscoXml(fileName, setTag = ""):
     tree = ET.parse(fileName)
     records = tree.getroot()
     entries = []
@@ -47,7 +93,7 @@ def buildDataset(fileName, setTag = ""):
         day = att.get('day')
         date = datetime(int(year), int(month), int(day)).date()
         
-        # Pack results into entries
+        # Pack results into new entry
         entry = {'setTag': setTag,
                 'title': title,
                 'authors': authors,
@@ -56,11 +102,12 @@ def buildDataset(fileName, setTag = ""):
                 'language': language,
                 'journalName': journalName}
         
+        # Add new entry to list of entries
         entries.append(entry)
+
     return entries
 
-import csv
-import io
+
 def writeCSV(outFileName, entries):
     with io.open(outFileName,'w', encoding="utf-8", newline = '') as out:
         csv_out=csv.writer(out)
@@ -109,5 +156,9 @@ def buildDailyPublishSum(dailyCount):
                 if not date in dailySum:
                     dailySum[date] = 0
                 dailySum[date] += dailyCount[prevDate]
+
     return dailySum
 
+
+
+# %%
