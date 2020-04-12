@@ -11,7 +11,7 @@ def plotDaily(days = [],
             xlabel="Date",
             title="Daily Data", 
             todayCol = '',
-            showMax = [],
+            maxCols = [],
             dayLimiter = 30, 
             pltFmt = ['bo'], 
             saveFmt = ''):
@@ -27,15 +27,11 @@ def plotDaily(days = [],
         # If the user doesn't provide pltFmt, use the default
         if len(pltFmt) == 1:
             f = pltFmt[0]
-
         # If the user gives their own list and that list won't go out of range, use theirs
         elif (len(pltFmt) > 1):
             f = pltFmt[i]
-        
-        # Mark the maximum with a horizontal line, if requested
-        if (not showMax == []) and showMax[i]:
-            plt.axhline(y=max(values), color = f[0], linestyle = '--', label = str(int(max(values))))       
-            plt.legend()
+        else:
+            f = 'bo'
 
         # Perform plot
         if not lineLabels == []:
@@ -43,6 +39,11 @@ def plotDaily(days = [],
             plt.legend()
         else:
             plt.plot_date(days, values, fmt=f, tz=None, xdate=True)
+
+        # Mark the maximum with a horizontal line, if requested
+        if (not maxCols == []) and (not maxCols[i] == None):
+            plt.axhline(y=max(values), color = maxCols[i], linestyle = '-.', label = str(int(max(values))))       
+            plt.legend()
 
         i = i+1
     
