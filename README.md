@@ -1,4 +1,4 @@
-# COVID19AcademiaDataset
+# COVID19 Publications Dataset
 Database of metadata for scholarly articles related to the Coronavirus Disease 2019.
 
 Data is scraped through exported searches of the EBSCOhost search tool, utilizing all of their databases.
