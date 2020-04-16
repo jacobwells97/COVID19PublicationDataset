@@ -1,16 +1,8 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
-
 import pandas as pd
-import os
 import io
 from datetime import datetime
-from utils import dictToDf
 
-def buildDataset(path):
+def read_data(path):
     '''
     Reads Johns Hopkins data to build global sums for cases, deaths, recovered for each day.
     Stores in a pandas df with format:
@@ -30,7 +22,7 @@ def buildDataset(path):
     print("\tMerging, cleaning, and renaming sums...")
     frames = [cDf, dDf, rDf]
     result = pd.concat(frames, axis = 1)
-    result = result.rename(columns={0:'confirmed', 1:'dead', 2:'recovered'})
+    result = result.rename(columns={0:'Confirmed', 1:'Dead', 2:'Recovered'})
     result = result.drop(['Lat', 'Long'], axis = 0)
     # Convert string dates to datetime objects
     for i in result.index:

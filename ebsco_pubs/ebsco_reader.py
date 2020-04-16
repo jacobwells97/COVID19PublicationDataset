@@ -1,17 +1,12 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
-
 import csv
 from datetime import datetime, timezone, timedelta
 import io
 import pandas as pd
 import xml.etree.ElementTree as ET
 from utils import dictToDf
+import numpy as np
 
-def buildDataset(fileName, setTag = ""):
+def read_data(fileName, setTag = ""):
     '''
     Parse and process EBSCO XML search results file.
 
@@ -29,32 +24,29 @@ def buildDataset(fileName, setTag = ""):
         row 0 is new publications on that date, 
         row 1 is total publications up to that date
     '''
-    print("Reading EBSCO search data...")
 
-    print("\tReading entries from XML file...")
     entries = parseEbscoXml(fileName, setTag)
 
-    print("\tWriting entries to CSV...")
-    writeCSV('csvData.csv', entries)
-
-    print("\tBuilding daily publication counts...")
+    print("Cleaning data...")
     dailyCount = buildDailyPublishCount(entries)
-    
-    print("\tBuilding daily publication sums...")
-    dailySum = buildDailyPublishSum(dailyCount)
 
-    print("\tConverting to Pandas DataFrames....")
-    countDf = dictToDf.convert(dailyCount)
-    sumDf = dictToDf.convert(dailySum)
+    # Convert to pandas DF with dats as row names
+    countDf = dictToDf.convert(dailyCount).transpose()
 
-    print("\tCombining DataFrames...")
-    countDf.loc[1] = sumDf.loc[0]
+    # Add missing dates
+    countDf = countDf.reindex(pd.date_range(countDf.index[0], countDf.index[-1]), 
+        fill_value=0)
 
-    print("Done.")
+    countDf = buildDailyPublishSum(countDf)
+
+    countDf = countDf.rename(columns={0: "Publications"})
+
     # Return combined DataFrame
     return countDf
 
 def parseEbscoXml(fileName, setTag = ""):
+    print("Reading EBSCO search data...")
+
     tree = ET.parse(fileName)
     records = tree.getroot()
     entries = []
@@ -129,36 +121,28 @@ def writeCSV(outFileName, entries):
             csv_out.writerow(row)
 
 def buildDailyPublishCount(entries):
+    today = datetime.today().date()
     # Build sum by date
     dailyCount = {}
     for entry in entries:
         # Get the current date
         date = entry['datePublished']
-        
-        # Intiialize a sum if necessary
-        if not date in dailyCount:
-            dailyCount[date] = 0
-            
-        # Add to the daily sum
-        dailyCount[date] += 1 
+
+        # Don't accept future publications
+        if date < today:       
+            # Intiialize a sum if necessary
+            if not date in dailyCount:
+                dailyCount[date] = 0
+                
+            # Add to the daily sum
+            dailyCount[date] += 1 
 
     return dailyCount
 
-def buildDailyPublishSum(dailyCount):
-    dailySum = {}
-    # For each day
-    for date in dailyCount:
-        # Sum all previous day counts
-        for prevDate in dailyCount:
-            # If this date is before or on the current date, 
-            if prevDate <= date:
-                # Initialize if necessary and add to sum
-                if not date in dailySum:
-                    dailySum[date] = 0
-                dailySum[date] += dailyCount[prevDate]
+def buildDailyPublishSum(count):
+    count.index = [i.date() for i in count.index]
+    i0 = count.index[0]
 
-    return dailySum
+    count['Total Published'] = [count.loc[i0:i].sum()[0] for i in count.index]
 
-
-
-# %%
+    return count
