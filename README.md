@@ -28,4 +28,5 @@ COVID-19 case data is retrieved from [JHU's COVID-19 database](https://github.co
 ![covid.png](https://github.com/jakesmells/COVID19AcademiaDataset/blob/master/media/covid.png)
 
 NASDAQ stock market data retrieved using Quandl's Python API:
+
 ![nasdaq.png](https://github.com/jakesmells/COVID19AcademiaDataset/blob/master/media/nasdaq.png)
