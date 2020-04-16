@@ -1,5 +1,6 @@
 # COVID19 Publications Dataset
-Database of metadata for scholarly articles related to the Coronavirus Disease 2019.
+Database of metadata for scholarly articles related to the Coronavirus Disease 2019, for the purpose of analyzing the effectiveness of the academic response.
+![combined_normalized.png](https://github.com/jakesmells/COVID19AcademiaDataset/blob/master/media/combined_normalized.png)
 
 Data is scraped through exported searches of the EBSCOhost search tool, utilizing all of their databases.
 
@@ -19,9 +20,11 @@ Duplicate DOIs should be automatically removed by EBSCO
 
 Raw XML data is scraped and simple results are plotted:
 
-![COVID-19_Publications_per_Day.png](https://github.com/jakesmells/COVID19AcademiaDataset/blob/master/media/COVID-19_Publications_per_Day.png)
-![COVID-19_Total_Publications.png](https://raw.githubusercontent.com/jakesmells/COVID19AcademiaDataset/master/media/COVID-19_Total_Publications.png)
+![publications.png](https://github.com/jakesmells/COVID19AcademiaDataset/blob/master/media/publications.png)
 
 COVID-19 case data is retrieved from [JHU's COVID-19 database](https://github.com/CSSEGISandData/COVID-19):
 
-![Total_Global_Confirmed_Dead_Recovered_COVID-19_Cases.png](https://github.com/jakesmells/COVID19AcademiaDataset/blob/master/media/Confirmed%2C_Dead%2C_and_Recovered_Cases_Globally.png)
+![covid.png](https://github.com/jakesmells/COVID19AcademiaDataset/blob/master/media/covid.png)
+
+NASDAQ stock market data retrieved using Quandl's Python API:
+![nasdaq.png](https://github.com/jakesmells/COVID19AcademiaDataset/blob/master/media/nasdaq.png)
