@@ -3,11 +3,14 @@ from datetime import date, timedelta
 import pandas as pd
 import numpy as np
 
-def read_data(quandl_api_key):
+def read_data(quandl_api_key, start_date = ""):
     quandl.ApiConfig.api_key = quandl_api_key
     
     print("Getting NASDAQ index data from Quandl...")
-    ndq = quandl.get("NASDAQOMX/COMP-NASDAQ", trim_start='2019-11-01')
+    if start_date is not "":
+        ndq = quandl.get("NASDAQOMX/COMP-NASDAQ", trim_start=start_date)
+    else:
+        ndq = quandl.get("NASDAQOMX/COMP-NASDAQ", trim_start='2019-11-01')
 
     # Extract dates and NASDAQ index values, convert to Pandas DataFrame
     ndq = ndq.loc[:,"Index Value"]

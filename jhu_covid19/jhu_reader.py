@@ -22,7 +22,7 @@ def read_data(path):
     print("\tMerging, cleaning, and renaming sums...")
     frames = [cDf, dDf, rDf]
     result = pd.concat(frames, axis = 1)
-    result = result.rename(columns={0:'Confirmed', 1:'Dead', 2:'Recovered'})
+    result = result.rename(columns={0:'Confirmed', 1:'Deaths', 2:'Recovered'})
     result = result.drop(['Lat', 'Long'], axis = 0)
     # Convert string dates to datetime objects
     for i in result.index:
